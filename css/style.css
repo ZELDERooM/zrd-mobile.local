@@ -1,0 +1,589 @@
+body{
+    margin: 0;
+    padding: 0;
+    border: 5px solid black;
+    background-color: #aad7b8;
+}
+.grid-conteiner{
+    display: grid;
+    grid-template-columns: 15vw 1fr; /* 300px под меню, остальное — под контент */
+    column-gap: 30px; 
+    /* Если хочешь расстояние сверху/снизу между строками */
+    row-gap: 20px;
+    min-height: 100vh;
+}
+
+
+
+/* ЛОГО */
+.Logo{
+    margin-left: 10%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(32px, 5vw, 64px);
+    color: rgb(0, 0, 0);
+    text-shadow: 3px 2px 0px rgb(77, 77, 77);
+    letter-spacing: -2px; /* Сблизит буквы */
+    line-height: 1;      /* Уберет лишнее пространство сверху и снизу */
+    text-decoration: none;
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 8px;
+}
+.Logo a{
+    text-decoration: none;
+    color: #000;
+}
+
+
+
+/* БОКОВОЕ МЕНЮ */
+aside{
+    margin-left: 1%;
+    width: 15vw;
+    background-color: #aad7b8; /* Светло-зеленый фон как на фото */
+    height: 100vh;
+    padding: 20px 0;
+
+    display: flex;
+    flex-direction: column;
+}
+.side-nav ul {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    list-style: none; /* Убираем точки */
+    padding: 0;
+    margin: 0;
+}
+.nav-item {
+    display: block; /* Ссылка занимает всю ширину */
+    padding: 15px 25px;
+    color: #000;
+    text-decoration: none;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-weight: bold;
+    font-size: clamp(1.1rem, 2vw, 1.8rem);
+    transition: all 0.2s; /* Плавность для наведения */
+}
+/* Эффект для активной кнопки (черный фон, белый текст) */
+.nav-item.active {
+    background-color: #000;
+    color: lightcyan;
+}
+/* Эффект при наведении (можно сделать серым или инверсией) */
+.nav-item:hover:not(.active) {
+    background-color: rgb(0, 0, 0); /* Легкое затемнение */
+    color: #fff;
+}
+
+
+
+/* ШАПКА */
+.main-header {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.slider {
+    position: relative;
+    border: 3px solid #000; /* Жирная рамка как у всех блоков */
+    background: #fff;
+    box-shadow: 6px 6px 0px #000; /* Жесткая тень */
+    height: 300px;
+    overflow: hidden; /* Скрываем части картинок, которые не влезают */
+}
+
+/* Контейнер для слайда */
+.slide {
+    display: none !important; /* По умолчанию скрываем абсолютно все слайды */
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+    /* Готовим флекс-выравнивание */
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* Показываем только активный слайд как флекс-контейнер */
+.slide.active {
+    display: flex !important; /* !important гарантирует, что JS и другие правила не перебьют флекс */
+}
+
+/* Сама картинка */
+.slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+
+/* Сама зелёная табличка */
+.slide-caption {
+    position: absolute;   /* Вырываем текст из флекс-потока, чтобы он парил поверх картинки */
+    bottom: 20px;         /* Отступ от нижнего края слайда */
+    left: 20px;           /* Отступ от левого края слайда */
+    
+    background-color: #A3E635; /* Твой фирменный салатовый/зелёный цвет */
+    color: #000;          /* Чёрный цвет текста */
+    border: 2px solid #000; /* Брутальная чёрная рамка */
+    padding: 8px 15px;    /* Внутренние отступы, чтобы текст не лип к рамке */
+    font-weight: bold;    /* Жирный шрифт */
+    text-transform: uppercase; /* Все буквы заглавные */
+    box-shadow: 3px 3px 0px #000; /* Жёсткая тень в стиле нео-брутализма */
+    
+    z-index: 20;          /* Выносим её на самый передний план, чтобы картинка её не перекрывала */
+}
+
+/* Кнопки стрелок */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    border: 2px solid #000;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 3px 3px 0px #000;
+}
+
+.slider-btn:active {
+    transform: translateY(-48%) translate(2px, 2px);
+    box-shadow: 0px 0px 0px #000;
+}
+
+.prev { left: 15px; }
+.next { right: 15px; }
+
+
+
+/* ГЛАВНОЕ ПОЛОТНО */
+.main-content{
+    margin: 2% 2% 2% 20px;
+    padding: 40px;
+    border: 3px solid black;
+    box-shadow: 3px 3px black;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 40px;
+    background-color: #fff8d4;
+}
+main{
+    display: flex;       /* Выстраивает детей (article-card и tariffs-sidebar) в ряд */
+    flex-direction: column;
+    align-items: flex-start; /* Чтобы карточки не растягивались по высоте */
+    gap: 40px;          /* Расстояние между основной карточкой и тарифами */
+    padding: 20px;
+    width: 100%;
+}
+
+
+
+/* ГЛАВНЫЙ ТАРИФ */
+.articles-list {
+    display: flex;
+    flex-direction: column; /* А вот тут карточки выстраиваются ВЕРТИКАЛЬНО */
+    gap: 20;             /* Расстояние между ними по вертикали */
+    flex: 3;               /* Занимает 75% ширины */
+}
+.article-card {
+    display: flex;
+    flex: 2;
+    flex-direction: row;      /* Картинка и текст строго в один ряд на ПК */
+    align-items: center;      /* Выравниваем картинку и текст по центру вертикали */
+    gap: 40px;    
+    background-color: #FFB302; /* Оранжевый из референса */
+    border: 3px solid #000;    /* Жирная черная рамка */
+    box-shadow: 10px 10px 0px #000; /* Жесткая тень без размытия */
+    margin: 20px 0;
+    padding: 30px;
+
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Стили для картинки */
+.article-image{
+    flex-shrink: 0;
+}
+.article-image img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    object-fit: cover;
+    border: 3px solid #000; /* Картинка тоже в рамке! */
+    box-sizing: border-box;
+}
+/* Стили текста */
+.article-info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.article-info h2 {
+    font-family: 'Arial Black', sans-serif;
+    font-size: clamp(24px, 3vw,40px);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin: 0;
+}
+.article-info p{
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 14pt;
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+.article-actions {
+    display: flex;       /* Включаем гибкий контейнер */
+    flex-direction: column; /* Выстраиваем кнопки в колонку (одна под другой) */
+    align-items: flex-start; /* ВАЖНО: прижимает обе кнопки строго к левому краю */
+    gap: 12px;           /* Одинаковое расстояние между кнопками */
+    margin-top: 20px;    /* Отступ от текста статьи сверху */
+}
+/* Кнопки */
+.btn-primary {
+    background-color: #000;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0;
+}
+.btn-secondary {
+    background: transparent;
+    border: 2px solid #000;
+    padding: 10px 23px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0;
+}
+.btn-primary:active, .btn-secondary:active {
+    transform: translate(3px, 3px); /* Смещается на место тени */
+    box-shadow: 0px 0px 0px black;  /* Тень исчезает */
+}
+
+
+/* Таблица тарифов */
+/* Форма обратной связи */
+/* Общие заголовки для новых секций */
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* --- СТИЛИ ТАБЛИЦЫ --- */
+.table-section {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Обертка для адаптивного скролла таблицы на телефонах */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; 
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0px #000;
+}
+
+.brutal-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    text-align: left;
+}
+
+.brutal-table th {
+    background-color: #aad7b8; /* Светло-зеленый под твой aside */
+    padding: 15px;
+    font-weight: bold;
+    border-bottom: 3px solid #000;
+    border-right: 2px solid #000;
+    text-transform: uppercase;
+}
+
+.brutal-table td {
+    padding: 15px;
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
+}
+
+.brutal-table th:last-child, .brutal-table td:last-child {
+    border-right: none;
+}
+
+/* Эффект зебры */
+.brutal-table tbody tr:nth-child(even) {
+    background-color: #FFF8D4; 
+}
+
+
+/* --- СТИЛИ ФОРМЫ --- */
+.feedback-section {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+}
+
+.brutal-form {
+    background-color: #fff;
+    border: 3px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-subtitle {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Стилизация полей ввода в стиле нео-брутализма */
+.input-group input {
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 2px solid #000;
+    background-color: #fdf5e6; /* Легкий бежевый оттенок */
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.1s;
+}
+
+/* Эффект при клике на поле ввода */
+.input-group input:focus {
+    background-color: #fff;
+    box-shadow: 4px 4px 0px #aad7b8;
+    transform: translate(-2px, -2px);
+}
+
+/* Кнопка отправки формы */
+.form-submit-btn {
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid #000;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #aad7b8;
+    transition: 0.1s;
+    margin-top: 10px;
+}
+
+.form-submit-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #aad7b8;
+}
+
+.form-submit-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ОСТАЛЬНЫЕ ТАРИФЫ */
+.tariffs-sidebar {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 20px;
+    width: 100%;
+}
+.sidebar-title{
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.tariff-mini-card {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 15px;
+    background: #fff;
+    border: 2px solid #000;
+    padding: 15px;
+    box-shadow: 4px 4px 0px #000; /* Жесткая тень */
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+.tariff-mini-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+}
+.tariff-icon {
+    font-size: 24px;
+    background: #f0f0f0;
+    border: 1px solid #000;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tariff-details h4 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+.tariff-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #444;
+}
+.tariff-price {
+    font-weight: bold;
+    font-size: 0.9rem;
+    background: #aad7b8; /* Твой зеленый цвет */
+    padding: 2px 6px;
+    border: 1px solid #000;
+}
+
+
+
+
+/* ПОДВАЛ */
+.footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between; /* Лого влево, кнопки вправо */
+    align-items: center;
+    
+    background-color: #aad7b8; /* Вернул зеленый как на фото */
+    border-top: 4px solid #000;
+    padding: 20px 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.footer-logo {
+    margin-left: 15%;
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.footer-links, .footer-socials {
+    display: flex;
+    gap: 20px; /* Расстояние между ссылками/иконками */
+}
+.footer-links a {
+    text-decoration: none;
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-copyright {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.footer-info {
+    margin-left: 15%;
+    display: flex;
+    flex-direction: row; 
+    gap: 30px; 
+    white-space: nowrap;
+}
+
+.footer-info p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Кнопки соцсетей в стиле кнопок на референсе */
+.footer-socials{
+    display: flex;
+    gap: 15px;
+}
+.social-icon {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    border: 2px solid #000;
+    padding: 8px 12px;
+    margin-left: 10px;
+    background: #A3E635; /* Твой зеленый */
+    box-shadow: 3px 3px 0px #000;
+    transition: 0.2s;
+}
+
+.social-icon:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #000;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+    .article-card {
+        flex-direction: column;   /* Картинка встает НАД текстом */
+        text-align: center;       /* Текст выравнивается по центру */
+        gap: 20px;
+    }
+
+    .article-actions {
+        align-items: center;      /* Кнопки встают по центру */
+        width: 100%;
+    }
+}
