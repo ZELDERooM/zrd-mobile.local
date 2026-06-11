@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showSlide(prevIndex);
     });
 
-    // ОПЦИОНАЛЬНО: Автоматическое перелистывание каждые 5 секунд
+    // Автоматическое перелистывание каждые 10 секунд
     setInterval(() => {
         nextBtn.click(); // Имитируем клик по кнопке "вперед"
     }, 10000);
@@ -54,13 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (form) {
         form.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Намертво блокируем перезагрузку страницы браузером
+            event.preventDefault(); // Блокировка перезагрузки страницы браузером
 
             // Автоматически собираем все данные из инпутов (name="name", name="email", name="phone")
             const formData = new FormData(form);
 
             try {
-                // Отправляем данные "вдогонку" в будущий PHP файл
+                // Отправляем данные в PHP файл
                 const response = await fetch('handlers/send.php', {
                     method: 'POST',
                     body: formData

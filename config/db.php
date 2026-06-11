@@ -3,10 +3,10 @@
 $host = '127.0.0.1';
 $db   = 'zrd_mobile';
 $user = 'root';
-$pass = ''; // В Open Server по умолчанию пароль пустой
+$pass = ''; 
 $charset = 'utf8mb4';
 
-// Формируем строку источника данных (DSN)
+// Формируем строку источника данных
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
 // Опции для безопасной и удобной работы с БД
